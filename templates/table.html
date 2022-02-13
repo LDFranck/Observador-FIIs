@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <title>ObservadorFIIs</title>
+        <link rel="stylesheet" href="/static/styles.css"/>
+    </head>
+    <body>
+        <div>
+            <h1>ObservadorFIIs &#128269;</h1>
+            <table>
+                <tr>
+                    <th>Código</th>
+                    <th>DB</th>
+                    <th>DP</th>
+                    <th>R</th>
+                    <th>P</th>
+                    <th>VP</th>  
+                    <th>E</th>         
+                </tr>
+                {% for fii in dados %}
+                <tr>
+                    <td><a target="_blank" href={{ fii['url'] }}>{{ fii['codigo'] }}</a></td>
+                    <td>{{ fii['data_base'][0] }}</td>
+                    <td>{{ fii['data_pagamento'][0] }}</td>
+                    <td>{{ fii['rendimento'][0] }}</td>
+                    <td>{{ fii['cotacao'] }}</td>
+                    <td>{{ fii['patrimonial'] }}</td>
+                    <td>{% if fii['cotas'] %}&#9989;{% else %}-{% endif %}</td>           
+                </tr>
+                {% endfor %}
+            </table>
+            <p>
+                <b>Legenda:</b><br>
+                DB = data base;<br>
+                DP = data de pagamento;<br>
+                R  = rendimento;<br>
+                P  = preço/cotação;<br>
+                VP = valor patrimonial;<br>
+                E  = documento sobre emissão de cotas.<br>
+            </p>
+            Made by <a href="https://github.com/LDFranck">@LDFranck</a>
+        </div>
+    </body>
+</html>
