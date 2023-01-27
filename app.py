@@ -16,12 +16,12 @@ async def get_informacao_fii(sessao, codigo_fii):
         html = BeautifulSoup(await resp_fiis.read(), 'html.parser')
 
         try:
-            dados_fii['patrimonial'] = html.tr.find_all(class_='value')[3].contents[1]
+            dados_fii['patrimonial'] = html.find_all(class_='indicators__box')[6].b.contents[0]                     # caminho atualizado
         except:
             dados_fii['patrimonial'] = None
 
         try:
-            dados_fii['cotacao'] = html.find(class_='item quotation').find(class_='value').contents[0]
+            dados_fii['cotacao'] = html.find(class_='item quotation').find(class_='value').contents[0]              # caminho OK
         except:
             dados_fii['cotacao'] = None
 
@@ -30,7 +30,7 @@ async def get_informacao_fii(sessao, codigo_fii):
         dados_fii['data_base'] = []
 
         try:
-            for linha in html.find(id='last-revenues--table').tbody.find_all('tr'):
+            for linha in html.find(class_="yieldChart__dados").find_all(class_='yieldChart__table__bloco')[1:]:     # caminho atualizado
                 coluna = list(linha.stripped_strings)
                 dados_fii['rendimento'].append(coluna[4].split()[1])
                 dados_fii['data_pagamento'].append(coluna[1])
@@ -41,7 +41,7 @@ async def get_informacao_fii(sessao, codigo_fii):
             dados_fii['data_base'].append(None)
 
         try:
-            atualizacoes = html.find(id='news--wrapper').find_all('a')
+            atualizacoes = html.find(id='news--wrapper').find_all('a')                                              # TODO
             emissao_cotas = [item.get_text(strip=True).find('Cotas') for item in atualizacoes]
             dados_fii['cotas'] = bool(sum([x for x in emissao_cotas if x != -1]))
         except:
