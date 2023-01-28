@@ -19,7 +19,7 @@
                     <th>R</th>
                     <th>P</th>
                     <th>VP</th>  
-                    <th>E</th>         
+                    <!-- <th>E</th> # descontinuado -->
                 </tr>
                 {% for fii in dados %}
                 <tr>
@@ -29,7 +29,7 @@
                     <td>{{ fii['rendimento'][0] }}</td>
                     <td>{{ fii['cotacao'] }}</td>
                     <td>{{ fii['patrimonial'] }}</td>
-                    <td>{% if fii['cotas'] %}&#9989;{% else %}-{% endif %}</td>           
+                    <!-- <td>{% if fii['cotas'] %}&#9989;{% else %}-{% endif %}</td> # descontinuado -->           
                 </tr>
                 {% endfor %}
             </table>
@@ -39,8 +39,8 @@
                 DP = data de pagamento;<br>
                 R  = rendimento;<br>
                 P  = preço/cotação;<br>
-                VP = valor patrimonial;<br>
-                E  = documento sobre emissão de cotas.<br>
+                VP = valor patrimonial.<br>
+                <!-- E  = documento sobre emissão de cotas.<br> # descontinuado -->
             </p>
             Made by <a href="https://github.com/LDFranck">@LDFranck</a>
         </div>
