@@ -40,20 +40,21 @@ async def get_informacao_fii(sessao, codigo_fii):
             dados_fii['data_pagamento'].append(None)
             dados_fii['data_base'].append(None)
 
-        try:
-            atualizacoes = html.find(id='news--wrapper').find_all('a')                                              # TODO
-            emissao_cotas = [item.get_text(strip=True).find('Cotas') for item in atualizacoes]
-            dados_fii['cotas'] = bool(sum([x for x in emissao_cotas if x != -1]))
-        except:
-            dados_fii['cotas'] = None
+        #try:
+        #    atualizacoes = html.find(id='news--wrapper').find_all('a')                                             # descontinuado
+        #    emissao_cotas = [item.get_text(strip=True).find('Cotas') for item in atualizacoes]
+        #    dados_fii['cotas'] = bool(sum([x for x in emissao_cotas if x != -1]))
+        #except:
+        #    dados_fii['cotas'] = None
 
         return dados_fii
 
 
 async def get_lista_fiis():
     async with aiohttp.ClientSession() as sessao:
+        url_bd = os.environ.get('URL_FIREBASE')
         lista_fiis = []
-        async with sessao.get(os.environ.get('URL_FIREBASE')) as resp_firebase:
+        async with sessao.get(url_bd + '.json') as resp_firebase:                                                   # modificado
             try:
                 lista_fiis = await resp_firebase.json()
             except:
